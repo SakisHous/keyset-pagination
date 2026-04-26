@@ -1,0 +1,54 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.app'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.2'
+
+	implementation 'com.h2database:h2'
+
+	implementation 'org.mapstruct:mapstruct:1.6.3'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Lombok - MapStruct binding dependency
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+
+	// MySQL JDBC Driver
+	implementation 'com.mysql:mysql-connector-j:8.4.0'
+
+	// Test dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// TestContainers
+	testImplementation platform('org.testcontainers:testcontainers-bom:2.0.4')
+	testImplementation "org.testcontainers:testcontainers-junit-jupiter"
+	testImplementation "org.testcontainers:testcontainers-mysql"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
